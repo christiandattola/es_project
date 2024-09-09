@@ -1,0 +1,26 @@
+Format: 1.8
+Date: Tue, 23 Apr 2024 17:02:32 +0200
+Source: slurm-smd-build-deps
+Binary: slurm-smd-build-deps
+Built-For-Profiles: noudeb
+Architecture: all
+Version: 23.11.6-1
+Distribution: unstable
+Urgency: low
+Maintainer: Equivs Dummy Package Generator <root@christian-vm>
+Changed-By: Equivs Dummy Package Generator <root@christian-vm>
+Description:
+ slurm-smd-build-deps - build-dependencies for slurm-smd
+Changes:
+ slurm-smd-build-deps (23.11.6-1) unstable; urgency=low
+ .
+   * First version
+Checksums-Sha1:
+ 8affaef43c736daa4738e5a9ef75b74169d1e3ab 2322 slurm-smd-build-deps_23.11.6-1_all.deb
+ f77de068b0bd0f279353f6906f34a58f33d3202f 6022 slurm-smd-build-deps_23.11.6-1_arm64.buildinfo
+Checksums-Sha256:
+ 33b3097a68fac05b2e2e2f4cb9f424e99d8880042abeece41737459a5cc0a502 2322 slurm-smd-build-deps_23.11.6-1_all.deb
+ ba806e8e18d90ae50063e14bec225e0ac5bd3b8a88c6ccdc1e1d7e9b12310ba2 6022 slurm-smd-build-deps_23.11.6-1_arm64.buildinfo
+Files:
+ 68250ab1621ef8629e416b88c08a702e 2322 devel optional slurm-smd-build-deps_23.11.6-1_all.deb
+ b28846e34b2ca1dacb1d3345124a4f72 6022 devel optional slurm-smd-build-deps_23.11.6-1_arm64.buildinfo
