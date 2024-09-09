@@ -1,0 +1,1 @@
+/usr/bin/c++ -rdynamic CMakeFiles/test_split.dir/test_split.cpp.o -o test_split  ../rm/librmcommon/librmcommon.a ../rm/platformcontrol/libplatformcontrol.a ../rm/librmcommon/librmcommon.a -llog4cpp -lpthread 

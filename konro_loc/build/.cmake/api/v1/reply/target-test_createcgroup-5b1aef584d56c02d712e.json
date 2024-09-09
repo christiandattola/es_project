@@ -1,0 +1,219 @@
+{
+	"artifacts" : 
+	[
+		{
+			"path" : "testplatformcontrol/test_createcgroup"
+		}
+	],
+	"backtrace" : 2,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_executable",
+			"add_unit_test",
+			"target_link_libraries",
+			"add_compile_options",
+			"add_definitions"
+		],
+		"files" : 
+		[
+			"testplatformcontrol/CMakeLists.txt",
+			"CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 19,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 11,
+				"parent" : 1
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 13,
+				"parent" : 1
+			},
+			{
+				"file" : 1
+			},
+			{
+				"command" : 3,
+				"file" : 1,
+				"line" : 25,
+				"parent" : 4
+			},
+			{
+				"command" : 4,
+				"file" : 1,
+				"line" : 18,
+				"parent" : 4
+			}
+		]
+	},
+	"compileGroups" : 
+	[
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"backtrace" : 5,
+					"fragment" : "-Wall"
+				},
+				{
+					"backtrace" : 5,
+					"fragment" : "-Wextra"
+				},
+				{
+					"backtrace" : 5,
+					"fragment" : "-Wpedantic"
+				},
+				{
+					"fragment" : "-std=gnu++23"
+				}
+			],
+			"defines" : 
+			[
+				{
+					"backtrace" : 6,
+					"define" : "CGROUPBASEDIR=\"/sys/fs/cgroup\""
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 3,
+					"path" : "/home/christian/Scrivania/konro_git/rm/librmcommon/."
+				},
+				{
+					"backtrace" : 3,
+					"path" : "/home/christian/Scrivania/konro_git/rm/librmcommon/events"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "/home/christian/Scrivania/konro_git/rm/platformcontrol/."
+				},
+				{
+					"backtrace" : 3,
+					"path" : "/home/christian/Scrivania/konro_git/rm/platformcontrol/cgroup/controllers"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "/home/christian/Scrivania/konro_git/rm/platformcontrol/drom/controllers"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "/home/christian/Scrivania/konro_git/rm/platformcontrol/utilities"
+				}
+			],
+			"language" : "CXX",
+			"languageStandard" : 
+			{
+				"backtraces" : 
+				[
+					2
+				],
+				"standard" : "23"
+			},
+			"sourceIndexes" : 
+			[
+				0
+			]
+		}
+	],
+	"dependencies" : 
+	[
+		{
+			"backtrace" : 3,
+			"id" : "rmcommon::@b586b69f24da83e2849b"
+		},
+		{
+			"backtrace" : 3,
+			"id" : "platformcontrol::@9b930130e33e8b726c47"
+		}
+	],
+	"id" : "test_createcgroup::@3661221d8c1c01cc14f6",
+	"link" : 
+	{
+		"commandFragments" : 
+		[
+			{
+				"fragment" : "-rdynamic",
+				"role" : "flags"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "../rm/librmcommon/librmcommon.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "../rm/platformcontrol/libplatformcontrol.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "../rm/librmcommon/librmcommon.a",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-llog4cpp",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-lpthread",
+				"role" : "libraries"
+			}
+		],
+		"language" : "CXX"
+	},
+	"name" : "test_createcgroup",
+	"nameOnDisk" : "test_createcgroup",
+	"paths" : 
+	{
+		"build" : "testplatformcontrol",
+		"source" : "testplatformcontrol"
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "Source Files",
+			"sourceIndexes" : 
+			[
+				0
+			]
+		},
+		{
+			"name" : "Header Files",
+			"sourceIndexes" : 
+			[
+				1
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 2,
+			"compileGroupIndex" : 0,
+			"path" : "testplatformcontrol/test_createcgroup.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 2,
+			"path" : "testplatformcontrol/unittest.h",
+			"sourceGroupIndex" : 1
+		}
+	],
+	"type" : "EXECUTABLE"
+}

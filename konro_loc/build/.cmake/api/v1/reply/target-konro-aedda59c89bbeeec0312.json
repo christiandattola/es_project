@@ -1,0 +1,354 @@
+{
+	"artifacts" : 
+	[
+		{
+			"path" : "rm/konro"
+		}
+	],
+	"backtrace" : 1,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_executable",
+			"target_link_libraries",
+			"add_compile_options",
+			"add_definitions",
+			"target_compile_definitions",
+			"include_directories"
+		],
+		"files" : 
+		[
+			"rm/CMakeLists.txt",
+			"CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 18,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 20,
+				"parent" : 0
+			},
+			{
+				"file" : 1
+			},
+			{
+				"command" : 2,
+				"file" : 1,
+				"line" : 25,
+				"parent" : 3
+			},
+			{
+				"command" : 3,
+				"file" : 1,
+				"line" : 18,
+				"parent" : 3
+			},
+			{
+				"command" : 4,
+				"file" : 0,
+				"line" : 19,
+				"parent" : 0
+			},
+			{
+				"command" : 5,
+				"file" : 0,
+				"line" : 16,
+				"parent" : 0
+			}
+		]
+	},
+	"compileGroups" : 
+	[
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"backtrace" : 4,
+					"fragment" : "-Wall"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "-Wextra"
+				},
+				{
+					"backtrace" : 4,
+					"fragment" : "-Wpedantic"
+				},
+				{
+					"fragment" : "-std=gnu++23"
+				}
+			],
+			"defines" : 
+			[
+				{
+					"backtrace" : 5,
+					"define" : "CGROUPBASEDIR=\"/sys/fs/cgroup\""
+				},
+				{
+					"backtrace" : 6,
+					"define" : "KONRO_RM"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 7,
+					"path" : "/home/christian/Scrivania/konro_git/rm/include"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "/home/christian/Scrivania/konro_git/common/include"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "/home/christian/Scrivania/konro_git/rm/librmcommon/."
+				},
+				{
+					"backtrace" : 2,
+					"path" : "/home/christian/Scrivania/konro_git/rm/librmcommon/events"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "/home/christian/Scrivania/konro_git/rm/platformcontrol/."
+				},
+				{
+					"backtrace" : 2,
+					"path" : "/home/christian/Scrivania/konro_git/rm/platformcontrol/cgroup/controllers"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "/home/christian/Scrivania/konro_git/rm/platformcontrol/drom/controllers"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "/home/christian/Scrivania/konro_git/rm/platformcontrol/utilities"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "/home/christian/Scrivania/konro_git/rm/workloadmanager/."
+				},
+				{
+					"backtrace" : 2,
+					"path" : "/home/christian/Scrivania/konro_git/rm/policymanager/."
+				},
+				{
+					"backtrace" : 2,
+					"path" : "/home/christian/Scrivania/konro_git/rm/platformdescription/."
+				},
+				{
+					"backtrace" : 2,
+					"path" : "/home/christian/Scrivania/konro_git/rm/platformmonitor/."
+				}
+			],
+			"language" : "CXX",
+			"languageStandard" : 
+			{
+				"backtraces" : 
+				[
+					1
+				],
+				"standard" : "23"
+			},
+			"sourceIndexes" : 
+			[
+				0,
+				1,
+				2
+			]
+		}
+	],
+	"dependencies" : 
+	[
+		{
+			"backtrace" : 2,
+			"id" : "konro-common::@bfc844598bd03e848b3c"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "platformdescription::@9b85185524c69dc33f35"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "rmcommon::@b586b69f24da83e2849b"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "platformcontrol::@9b930130e33e8b726c47"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "workloadmanager::@a2a19a9721889ff0046f"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "policymanager::@689069cc87f944c2ad91"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "platformmonitor::@6475f9207f222ed15905"
+		}
+	],
+	"id" : "konro::@ae873259277ca94e1169",
+	"link" : 
+	{
+		"commandFragments" : 
+		[
+			{
+				"fragment" : "-rdynamic",
+				"role" : "flags"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "../common/libkonro-common.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "librmcommon/librmcommon.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "platformcontrol/libplatformcontrol.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "workloadmanager/libworkloadmanager.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "policymanager/libpolicymanager.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "platformmonitor/libplatformmonitor.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "-llog4cpp",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "-lpthread",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "policymanager/libpolicymanager.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "platformcontrol/libplatformcontrol.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "-llog4cpp",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "-lpthread",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "platformdescription/libplatformdescription.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "librmcommon/librmcommon.a",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-lhwloc",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-ldlb",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-lsensors",
+				"role" : "libraries"
+			}
+		],
+		"language" : "CXX"
+	},
+	"name" : "konro",
+	"nameOnDisk" : "konro",
+	"paths" : 
+	{
+		"build" : "rm",
+		"source" : "rm"
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "Source Files",
+			"sourceIndexes" : 
+			[
+				0,
+				1,
+				2
+			]
+		},
+		{
+			"name" : "Header Files",
+			"sourceIndexes" : 
+			[
+				3,
+				4
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "rm/src/konrohttp.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "rm/src/konromanager.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "rm/src/main.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "rm/src/konrohttp.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "rm/src/konromanager.h",
+			"sourceGroupIndex" : 1
+		}
+	],
+	"type" : "EXECUTABLE"
+}

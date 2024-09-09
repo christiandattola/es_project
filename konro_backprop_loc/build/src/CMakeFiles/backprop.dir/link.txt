@@ -1,0 +1,1 @@
+/usr/bin/clang++ -O3 CMakeFiles/backprop.dir/backprop_kernel.cpp.o CMakeFiles/backprop.dir/backprop.cpp.o CMakeFiles/backprop.dir/facetrain.cpp.o CMakeFiles/backprop.dir/imagenet.cpp.o -o backprop  -Wl,-rpath,/usr/local/lib: /home/christian/konro/build/konrolib/libkonrolib.a /usr/local/lib/libdlb.so /usr/lib/llvm-14/lib/libomp.so /lib/aarch64-linux-gnu/libpthread.a 
