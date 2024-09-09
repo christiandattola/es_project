@@ -1,0 +1,2 @@
+/usr/bin/ar qc libkonro-common.a CMakeFiles/konro-common.dir/src/config.cpp.o
+/usr/bin/ranlib libkonro-common.a

@@ -1,0 +1,1 @@
+/usr/bin/c++ -rdynamic CMakeFiles/testhwloc.dir/testhwloc.cpp.o -o testhwloc  ../rm/librmcommon/librmcommon.a -lhwloc 

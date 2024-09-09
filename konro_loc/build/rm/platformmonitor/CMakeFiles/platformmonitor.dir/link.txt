@@ -1,0 +1,2 @@
+/usr/bin/ar qc libplatformmonitor.a CMakeFiles/platformmonitor.dir/platformmonitor.cpp.o
+/usr/bin/ranlib libplatformmonitor.a

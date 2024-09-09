@@ -1,0 +1,1 @@
+/usr/bin/c++ -rdynamic CMakeFiles/testrmcommon.dir/testrmcommon.cpp.o -o testrmcommon  ../rm/librmcommon/librmcommon.a 

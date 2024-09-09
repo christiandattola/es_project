@@ -1,0 +1,1 @@
+/usr/bin/c++ -rdynamic CMakeFiles/testtimer.dir/testtimer.cpp.o -o testtimer  ../rm/librmcommon/librmcommon.a 
