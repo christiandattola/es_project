@@ -1,1 +1,0 @@
-/usr/bin/c++ -rdynamic CMakeFiles/testsensors.dir/testsensors.cpp.o -o testsensors  -lsensors 

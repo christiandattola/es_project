@@ -1,2 +1,0 @@
-/usr/bin/ar qc libworkloadmanager.a CMakeFiles/workloadmanager.dir/proclistener.cpp.o CMakeFiles/workloadmanager.dir/workloadmanager.cpp.o
-/usr/bin/ranlib libworkloadmanager.a
