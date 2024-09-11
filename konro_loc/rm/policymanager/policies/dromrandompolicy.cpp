@@ -9,6 +9,9 @@
 #include <log4cpp/Category.hh>
 #include <utility>
 #include <vector>
+#include <sys/socket.h>
+#include <thread>
+#include <netinet/in.h>
 
 using namespace std;
 
@@ -36,10 +39,7 @@ vector<pair<short, short>> pack_cpus(const vector<short> &cpus) {
 DromRandPolicy::DromRandPolicy(PlatformDescription pd)
     : platformDescription_(pd),
       cpuSetControl(pc::DromCpusetControl::instance(
-          platformDescription_.getNumProcessingUnits())) {
-            //TODO
-            log4cpp::Category::getRoot().debug("\n\nOPEN SOCKET CONNECTION WITH SLURM\n\n\n");
-          }
+          platformDescription_.getNumProcessingUnits())) { }
 
 void DromRandPolicy::addApp(AppMappingPtr appMapping) {
   log4cpp::Category::getRoot().debug("Add PID %i to Konro",
@@ -90,4 +90,85 @@ void DromRandPolicy::feedback(AppMappingPtr appMapping, int feedback) {
   }
 }
 
+
+//--- new code ---
+
+void DromRandPolicy::start() {
+    try {
+      std::thread s_thread(&DromRandPolicy::manageServerSocket, this);
+      s_thread.detach();
+    } catch (const std::exception& e) {
+        log4cpp::Category::getRoot().debug("EXCEPTION! :  %s", e.what());
+    }
+}
+
+void DromRandPolicy::manageServerSocket() {
+  log4cpp::Category::getRoot().debug("\nOpening socket server...\n");
+  int server, sock;
+  struct sockaddr_in address;
+  int opted = 1;
+  int port = 2828;
+  int backlog = 5;
+  int address_length = sizeof(address);
+  if( ( server = socket(AF_INET, SOCK_STREAM, 0)) == 0) {
+    log4cpp::Category::getRoot().error("Failed to open socket server");
+    pthread_exit(NULL);
+  }
+
+  if (setsockopt(server, SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT, &opted, sizeof(opted))) {
+        log4cpp::Category::getRoot().error("Socket setsockopt failed");
+        pthread_exit(NULL);
+  }
+
+    //SERVER address
+    address.sin_family = AF_INET; 
+    address.sin_addr.s_addr = INADDR_ANY;
+    address.sin_port = htons(port);
+
+    //Socket bind
+    if (bind(server, (struct sockaddr*)&address, sizeof(address)) < 0) {
+        log4cpp::Category::getRoot().error("Socket bind failed");
+        pthread_exit(NULL);
+    }
+
+    //Server starts listening
+    if (listen(server, backlog) < 0) {
+        log4cpp::Category::getRoot().error("Socket listen failed");
+        pthread_exit(NULL);
+    }
+
+    log4cpp::Category::getRoot().debug("Server listening on port %d", port);
+
+    //Accept incoming connections
+    while (true) {
+        if ((sock = accept(server, (struct sockaddr*)&address, (socklen_t*)&address_length)) < 0) {
+            log4cpp::Category::getRoot().error("Server connection accept failed");
+            pthread_exit(NULL);
+        }
+
+        log4cpp::Category::getRoot().debug("Connection accepted");
+
+        std::thread client_thread(&DromRandPolicy::manage_client_req, this, sock);
+        //REVISE thread call like the previous one
+    }
+
+    close(server);
+
+}
+
+void DromRandPolicy::manage_client_req(int sock){
+  char buffer[1024] = {0};
+    
+  //Receive data
+  int valread = read(sock, buffer, 1024);
+  log4cpp::Category::getRoot().debug("Message received: %s", buffer);
+
+
+  //TODO answer to the client -- logic to control answer
+
+  //Close socket
+  close(sock);
+}
+
 } // namespace rp
+
