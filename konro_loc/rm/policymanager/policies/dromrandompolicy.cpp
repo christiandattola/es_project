@@ -107,7 +107,7 @@ void DromRandPolicy::manageServerSocket() {
   int server, sock;
   struct sockaddr_in address;
   int opted = 1;
-  int port = 2828;
+  int port = 28602;
   int backlog = 5;
   int address_length = sizeof(address);
   if( ( server = socket(AF_INET, SOCK_STREAM, 0)) == 0) {
@@ -149,7 +149,7 @@ void DromRandPolicy::manageServerSocket() {
         log4cpp::Category::getRoot().debug("Connection accepted");
 
         std::thread client_thread(&DromRandPolicy::manage_client_req, this, sock);
-        //REVISE thread call like the previous one
+        client_thread.detach();
     }
 
     close(server);
@@ -163,8 +163,9 @@ void DromRandPolicy::manage_client_req(int sock){
   int valread = read(sock, buffer, 1024);
   log4cpp::Category::getRoot().debug("Message received: %s", buffer);
 
-
   //TODO answer to the client -- logic to control answer
+  log4cpp::Category::getRoot().debug("Current number of free CPUs:  %d", 
+    cpuSetControl.getFreeCpus());
 
   //Close socket
   close(sock);
