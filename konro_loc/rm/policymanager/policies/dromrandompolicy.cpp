@@ -103,7 +103,7 @@ void DromRandPolicy::start() {
 }
 
 void DromRandPolicy::manageServerSocket() {
-  log4cpp::Category::getRoot().debug("\nOpening socket server...\n");
+  log4cpp::Category::getRoot().debug("\nOpening socket server...");
   int server, sock;
   struct sockaddr_in address;
   int opted = 1;
@@ -157,16 +157,25 @@ void DromRandPolicy::manageServerSocket() {
 }
 
 void DromRandPolicy::manage_client_req(int sock){
-  char buffer[1024] = {0};
-    
-  //Receive data
-  int valread = read(sock, buffer, 1024);
-  log4cpp::Category::getRoot().debug("Message received: %s", buffer);
+    char buffer[1024] = {0};
+      
+    //Receive data
+    int valread = read(sock, buffer, sizeof(buffer) - 1 );
+    log4cpp::Category::getRoot().debug("Valread %d", valread);
+    log4cpp::Category::getRoot().debug("Message received: %s", buffer);
+    buffer[valread] = '\0';
 
-  //TODO answer to the client -- logic to control answer
-  log4cpp::Category::getRoot().debug("Current number of free CPUs:  %d", 
-    cpuSetControl.getFreeCpus());
+    char response[1024];
+    int free_cpus = cpuSetControl.getFreeCpus();
+    snprintf(response, sizeof(response), "%d", free_cpus);
 
+    // Send response to the client
+    ssize_t sent_bytes = send(sock, response, strlen(response), 0);
+    if (sent_bytes < 0) {
+        log4cpp::Category::getRoot().error("Failed to send response to SLURM");
+    } else {
+        log4cpp::Category::getRoot().debug("Sent response FREECPU: %s", response);
+    }
   //Close socket
   close(sock);
 }

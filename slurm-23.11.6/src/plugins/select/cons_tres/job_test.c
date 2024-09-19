@@ -42,6 +42,7 @@
 #include "gres_select_filter.h"
 #include "gres_select_util.h"
 #include "gres_sched.h"
+#include "../../../../slurm/slurm.h"
 
 //---
 #include "src/common/log.h"
@@ -107,6 +108,7 @@ bool preempt_for_licenses = false;
 int preempt_reorder_cnt	= 1;
 
 /* Local functions */
+static int requestFreeCpusFromKonro(char * ipAddr);
 static List _build_node_weight_list(bitstr_t *node_bitmap);
 static void _cpus_to_use(uint16_t *avail_cpus, int64_t rem_max_cpus,
 			 int rem_nodes, job_details_t *details_ptr,
@@ -6739,7 +6741,28 @@ static avail_res_t *_allocate_sc(job_record_t *job_ptr, bitstr_t *core_map,
 	uint32_t socket_end;
 
 	//---
-	info("\n\n\n\n ALLOCATE SC!!! \n\n\n\n");
+	info("\n\n\n\n ALLOCATE SC!!!");
+	char * nodeName = node_ptr->node_hostname;
+	info("Node host name: %s\n", nodeName);
+
+	/* */
+	//node_info_msg_t *res = NULL;
+
+	/*
+	int result = slurm_load_node_single(&res, nodeName, 0);
+	if(result != 0) {
+		info("ERROR!");
+	} else {
+		char * address = res->node_array[node_i].node_addr;
+		info("ADDRESS: %s\n", address);
+	}
+	*/
+	/* */
+
+	//Get ip address
+	char * ipAddr = "127.0.1.1";
+	int freeCpus = requestFreeCpusFromKonro(ipAddr);
+
 
 	core_begin = 0;
 	core_end = node_ptr->tot_cores;
@@ -7170,6 +7193,12 @@ fini:
 
 	FREE_NULL_BITMAP(tmp_core);
 
+	//If the returned number of free Cpus got from Konro is valid, set it
+	if(freeCpus >= 0) {
+		avail_res->avail_cpus = freeCpus;
+		avail_res->avail_res_cnt = avail_res->avail_gpus + freeCpus;
+	}
+
 	return avail_res;
 }
 
@@ -7212,6 +7241,90 @@ static avail_res_t *_allocate(job_record_t *job_ptr,
 
 	return _allocate_sc(job_ptr, core_map, part_core_map, node_i,
 			    cpu_alloc_size, alloc_sockets, req_sock_map);
+}
+
+static int requestFreeCpusFromKonro(char * ipAddr){
+ 	int port = 28602; 
+    int to_sec = 5;   
+	int bufSize = 1024;
+	int freeCpus = -1;
+
+	int sockfd;
+    struct sockaddr_in server_addr;
+    struct timeval timeout;
+    fd_set read_fds;
+    char send_buffer[] = "GetFreeCPUs";
+    char recv_buffer[bufSize];
+    int recv_len;
+
+    // Create a TCP socket
+    sockfd = socket(AF_INET, SOCK_STREAM, 0);
+    if (sockfd < 0) {
+        perror("Socket creation failed");
+        return freeCpus;
+    }
+
+    // Set up the server address
+    server_addr.sin_family = AF_INET;
+    server_addr.sin_port = htons(port);
+    server_addr.sin_addr.s_addr = inet_addr(ipAddr);
+
+    // Connect to the server
+    if (connect(sockfd, (struct sockaddr *)&server_addr, sizeof(server_addr)) < 0) {
+        perror("Connection to server failed");
+        close(sockfd);
+        return freeCpus;
+    }
+
+    // Send the message to the server
+    if (send(sockfd, send_buffer, strlen(send_buffer), 0) < 0) {
+        perror("Send failed");
+        close(sockfd);
+        return freeCpus;
+    }
+
+    // Set up the timeout for 5 seconds
+    timeout.tv_sec = to_sec;
+    timeout.tv_usec = 0;
+
+    // Initialize the file descriptor set
+    FD_ZERO(&read_fds);
+    FD_SET(sockfd, &read_fds);
+
+    // Wait for the server's response with a timeout
+    int activity = select(sockfd + 1, &read_fds, NULL, NULL, &timeout);
+
+    if (activity < 0) {
+        perror("Select error");
+        close(sockfd);
+		return freeCpus;
+    } else if (activity == 0) {
+        printf("Timeout occurred! No response from server within %d seconds.\n", to_sec);
+        close(sockfd);
+        return freeCpus;
+    }
+
+    // If we have data to read
+    if (FD_ISSET(sockfd, &read_fds)) {
+        // Receive the response from the server
+        recv_len = recv(sockfd, recv_buffer, bufSize - 1, 0);
+        if (recv_len < 0) {
+            perror("Receive failed");
+            close(sockfd);
+            return freeCpus;
+        }
+
+        // Null-terminate the received data
+        recv_buffer[recv_len] = '\0';
+
+        // Convert the received message to an integer (if it's a number)
+        freeCpus = atoi(recv_buffer);
+        printf("Received number from server: %d\n", freeCpus);
+    }
+
+    // Close the socket
+    close(sockfd);
+	return freeCpus;
 }
 
 /*
