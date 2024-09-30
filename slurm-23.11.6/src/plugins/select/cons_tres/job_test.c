@@ -6741,7 +6741,6 @@ static avail_res_t *_allocate_sc(job_record_t *job_ptr, bitstr_t *core_map,
 	uint32_t socket_end;
 
 	//---
-	info("\n\n\n\n ALLOCATE SC!!!");
 	char * nodeName = node_ptr->node_hostname;
 	info("Node host name: %s\n", nodeName);
 
@@ -7271,14 +7270,14 @@ static int requestFreeCpusFromKonro(char * ipAddr){
 
     // Connect to the server
     if (connect(sockfd, (struct sockaddr *)&server_addr, sizeof(server_addr)) < 0) {
-        perror("Connection to server failed");
+        perror("Connection to KONRO server failed");
         close(sockfd);
         return freeCpus;
     }
 
     // Send the message to the server
     if (send(sockfd, send_buffer, strlen(send_buffer), 0) < 0) {
-        perror("Send failed");
+        perror("Send to KONRO failed");
         close(sockfd);
         return freeCpus;
     }
@@ -7295,21 +7294,20 @@ static int requestFreeCpusFromKonro(char * ipAddr){
     int activity = select(sockfd + 1, &read_fds, NULL, NULL, &timeout);
 
     if (activity < 0) {
-        perror("Select error");
+        perror("Error occurred while receiving response from KONRO");
         close(sockfd);
 		return freeCpus;
     } else if (activity == 0) {
-        printf("Timeout occurred! No response from server within %d seconds.\n", to_sec);
+        printf("Timeout occurred! No response from KONRO server within %d seconds.\n", to_sec);
         close(sockfd);
         return freeCpus;
     }
 
-    // If we have data to read
+    // If we receive data
     if (FD_ISSET(sockfd, &read_fds)) {
-        // Receive the response from the server
         recv_len = recv(sockfd, recv_buffer, bufSize - 1, 0);
         if (recv_len < 0) {
-            perror("Receive failed");
+            perror("Receive message from KONRO failed");
             close(sockfd);
             return freeCpus;
         }
@@ -7319,7 +7317,7 @@ static int requestFreeCpusFromKonro(char * ipAddr){
 
         // Convert the received message to an integer (if it's a number)
         freeCpus = atoi(recv_buffer);
-        printf("Received number from server: %d\n", freeCpus);
+        printf("Received number of freeCPUs from KONRO: %d\n", freeCpus);
     }
 
     // Close the socket

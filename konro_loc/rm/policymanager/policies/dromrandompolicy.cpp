@@ -161,22 +161,24 @@ void DromRandPolicy::manage_client_req(int sock){
       
     //Receive data
     int valread = read(sock, buffer, sizeof(buffer) - 1 );
-    log4cpp::Category::getRoot().debug("Valread %d", valread);
     log4cpp::Category::getRoot().debug("Message received: %s", buffer);
     buffer[valread] = '\0';
 
-    char response[1024];
-    int free_cpus = cpuSetControl.getFreeCpus();
-    snprintf(response, sizeof(response), "%d", free_cpus);
+    //If message received contains "GetFreeCPUs", send response"
+    if(strcmp(buffer, "GetFreeCPUs") == 0){
+      char response[1024];
+      int free_cpus = cpuSetControl.getFreeCpus();
+      snprintf(response, sizeof(response), "%d", free_cpus);
 
-    // Send response to the client
-    ssize_t sent_bytes = send(sock, response, strlen(response), 0);
-    if (sent_bytes < 0) {
-        log4cpp::Category::getRoot().error("Failed to send response to SLURM");
-    } else {
-        log4cpp::Category::getRoot().debug("Sent response FREECPU: %s", response);
-    }
-  //Close socket
+      // Send response to the client
+      ssize_t sent_bytes = send(sock, response, strlen(response), 0);
+      if (sent_bytes < 0) {
+          log4cpp::Category::getRoot().error("Failed to send response to SLURM");
+      } else {
+          log4cpp::Category::getRoot().debug("Sent response FREECPU: %s", response);
+      }
+  }
+  //Otherwise, just ignore message and close socket
   close(sock);
 }
 
