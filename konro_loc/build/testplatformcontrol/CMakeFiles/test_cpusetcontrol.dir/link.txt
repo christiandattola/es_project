@@ -1,1 +1,0 @@
-/usr/bin/c++ -rdynamic CMakeFiles/test_cpusetcontrol.dir/test_cpusetcontrol.cpp.o -o test_cpusetcontrol  ../rm/librmcommon/librmcommon.a ../rm/platformcontrol/libplatformcontrol.a ../rm/librmcommon/librmcommon.a -llog4cpp -lpthread 

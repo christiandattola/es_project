@@ -1,1 +1,0 @@
-/usr/bin/c++ -rdynamic CMakeFiles/testkonrolib.dir/testkonrolib.cpp.o -o testkonrolib  ../konrolib/libkonrolib.a 

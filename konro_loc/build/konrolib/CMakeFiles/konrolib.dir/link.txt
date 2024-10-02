@@ -1,2 +1,0 @@
-/usr/bin/ar qc libkonrolib.a CMakeFiles/konrolib.dir/konrolib.cpp.o
-/usr/bin/ranlib libkonrolib.a

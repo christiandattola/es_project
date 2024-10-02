@@ -1,2 +1,0 @@
-/usr/bin/ar qc librmcommon.a CMakeFiles/rmcommon.dir/baseeventreceiver.cpp.o CMakeFiles/rmcommon.dir/basethread.cpp.o CMakeFiles/rmcommon.dir/cpusetvector.cpp.o CMakeFiles/rmcommon.dir/dir.cpp.o CMakeFiles/rmcommon.dir/namespaces.cpp.o CMakeFiles/rmcommon.dir/numericvalue.cpp.o
-/usr/bin/ranlib librmcommon.a

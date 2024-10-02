@@ -1,2 +1,0 @@
-/usr/bin/ar qc libplatformdescription.a CMakeFiles/platformdescription.dir/platformdescription.cpp.o CMakeFiles/platformdescription.dir/processingunitmapping.cpp.o
-/usr/bin/ranlib libplatformdescription.a

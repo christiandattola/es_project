@@ -1,2 +1,0 @@
-/usr/bin/ar qc libpolicymanager.a CMakeFiles/policymanager.dir/policymanager.cpp.o CMakeFiles/policymanager.dir/policytimer.cpp.o CMakeFiles/policymanager.dir/policies/dromrandompolicy.cpp.o CMakeFiles/policymanager.dir/policies/mincorespolicy.cpp.o CMakeFiles/policymanager.dir/policies/nopolicy.cpp.o CMakeFiles/policymanager.dir/policies/puprogressivepolicy.cpp.o CMakeFiles/policymanager.dir/policies/randpolicy.cpp.o
-/usr/bin/ranlib libpolicymanager.a
