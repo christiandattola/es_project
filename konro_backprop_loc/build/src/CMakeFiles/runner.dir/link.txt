@@ -1,1 +1,0 @@
-/usr/bin/clang++ -O3 CMakeFiles/runner.dir/exec.cpp.o -o runner  -Wl,-rpath,/usr/local/lib: /home/christian/konro/build/konrolib/libkonrolib.a /usr/local/lib/libdlb.so 
